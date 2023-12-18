@@ -1,4 +1,5 @@
 export default function HomePage() {
+    console.log("Rendered on server");
     return (
         <>
             <h1>Indie Gamer</h1>
