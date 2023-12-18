@@ -1,8 +1,10 @@
+import Heading from "@components/Heading";
+
 export default function HomePage() {
     console.log("Rendered on server");
     return (
         <>
-            <h1>Indie Gamer</h1>
+            <Heading>Indie Gamer</Heading>
             <p>Only the best games I reviewed for you</p>
         </>
     );
