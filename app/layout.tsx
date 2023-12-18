@@ -1,7 +1,7 @@
 import React from 'react'
 import './globals.css'
 import NavBar from "../components/NavBar";
-import {orbitron} from "@fonts";
+import {exo2, orbitron} from "@fonts";
 
 export default function RootLayout({
                                        children,
@@ -9,7 +9,7 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en" className={orbitron.variable}>
+        <html lang="en" className={`${orbitron.variable} ${exo2.variable}`}>
         <head>
             <meta charSet="utf-8"/>
             <title>Indie Gamer</title>
@@ -18,7 +18,7 @@ export default function RootLayout({
         <header>
             <NavBar/>
         </header>
-        <main className={" grow py-3"}>
+        <main className={"grow py-3"}>
             {children}
         </main>
         <footer className={"text-center text-xs border-t py-3"}>

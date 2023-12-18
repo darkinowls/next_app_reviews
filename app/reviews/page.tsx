@@ -7,9 +7,8 @@ export default function ReviewsPage() {
     return (
         <>
             <Heading>Reviews</Heading>
-            <p>Here the list of reviews</p>
             <nav>
-                <ul className={"flex flex-col gap-4"}>
+                <ul className={"flex gap-4 flex-wrap"}>
                     <li className={"bg-white border w-80 rounded-2xl shadow hover:shadow-xl"}>
                         <Link href="/reviews/hollow-knight">
                             <img src={"/images/hollow-knight.jpg"}
@@ -17,7 +16,7 @@ export default function ReviewsPage() {
                                  height={180}
                                  className={"rounded-t-2xl mb-2"}
                                  alt={"Hollow knight"}/>
-                            <h2 className={"text-center py-2"}>Hollow knight</h2>
+                            <h2 className={"text-center py-2 font-orbitron font-semibold"}>Hollow knight</h2>
                         </Link>
                     </li>
 
@@ -28,7 +27,7 @@ export default function ReviewsPage() {
                                  height={180}
                                  className={"rounded-t-2xl mb-2"}
                                  alt={"Hollow knight"}/>
-                            <h2 className={"text-center py-2"}>Stardew Valley</h2>
+                            <h2 className={"text-center py-2 font-orbitron font-semibold"}>Stardew Valley</h2>
                         </Link>
                     </li>
                 </ul>
