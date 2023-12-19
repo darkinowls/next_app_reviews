@@ -1,3 +1,8 @@
+--- 
+title: Stardew Valley
+date: "2019-12-29"
+image: /images/stardew-valley.jpg
+---
 
 __Stardew Valley__ is a farm life simulation game developed by Eric "ConcernedApe" Barone. Players take the role of a
 character who inherits their deceased grandfather's dilapidated farm in a place known as Stardew Valley. The game was

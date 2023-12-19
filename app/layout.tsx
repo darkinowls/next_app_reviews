@@ -2,6 +2,16 @@ import React from 'react'
 import './globals.css'
 import NavBar from "../components/NavBar";
 import {exo2, orbitron} from "@fonts";
+import {Metadata} from "@node_modules/next";
+import icon from "@app/icon.png";
+
+
+export const metadata: Metadata = {
+    title: {
+        default: "Indie Gamer",
+        template: "%s | Indie Gamer",
+    },
+}
 
 export default function RootLayout({
                                        children,
@@ -12,7 +22,7 @@ export default function RootLayout({
         <html lang="en" className={`${orbitron.variable} ${exo2.variable}`}>
         <head>
             <meta charSet="utf-8"/>
-            <title>Indie Gamer</title>
+            {/*<title>Indie Gamer</title>*/}
         </head>
         <body className={"bg-orange-50 flex flex-col px-4 py-2 min-h-screen"}>
         <header>
