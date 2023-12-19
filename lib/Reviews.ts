@@ -1,6 +1,7 @@
 import {readdir, readFile} from "fs/promises";
 import matter from "@node_modules/gray-matter";
 import {marked} from "@node_modules/marked";
+import {OpenAPI, ReviewService} from "@api";
 
 export interface FullReview {
     title: string;
@@ -11,10 +12,21 @@ export interface FullReview {
 
 
 export const getReview = async (slug: string): Promise<FullReview> => {
-    const text = await readFile(`./content/reviews/${slug}.md`, "utf-8");
-    const {content, data: {title, date, image}} = matter(text);
-    const markedText = await marked(content, {});
-    return {title, date, image, markedText};
+
+
+    const review = await ReviewService.getReviews({
+        fields: ["slug"],
+        populate: {image: {fields: ["url"]}},
+    })
+
+    const {attributes} = review.data[0]
+    console.log(attributes.body)
+    return {
+        title: attributes.title,
+        date: attributes.publishedAt,
+        image: OpenAPI.DOMAIN + attributes.image.data.attributes.url,
+        markedText: ""
+    };
 }
 
 
@@ -25,33 +37,42 @@ export interface ShortReview {
     slug: string;
 }
 
-export const getReviews = async function* (): AsyncGenerator<ShortReview> {
-    const files = await readdir('./content/reviews', 'utf-8');
+export const getReviews = async (): Promise<ShortReview[]> => {
+    const res = await ReviewService.getReviews({
+        sort: "publishedAt:desc",
+        // paginationPageSize: 5,
+        fields: ["title", "slug", "publishedAt"],
+        populate: {image: {fields: ["url"]}}
+    })
+    const reviews = res.data
 
-    for (const file of files) {
-        const text = await readFile(`./content/reviews/${file}`, 'utf-8');
-        const {data: {title, date, image}} = matter(text);
-        yield {title, date, image, slug: file.replace('.md', '')};
-    }
+    return reviews.map((r) => ({
+        title: r.attributes.title,
+        date: r.attributes.publishedAt,
+        image: OpenAPI.DOMAIN + r.attributes.image.data.attributes.url,
+        slug: r.attributes.slug
+    }));
 };
 
 export const getReviewsSlug = async (): Promise<{ slug: string }[]> => {
-    const files = await readdir('./content/reviews', 'utf-8');
-    return files.map(file => ({
-        slug: file.replace('.md', '')
-    }));
+    const res = await ReviewService.getReviews({
+        fields: ["slug"],
+    })
+    return res.data.map((r) => ({slug: r.attributes.slug}));
 }
 
 
 export const getLatestReviewByDate = async (): Promise<ShortReview> => {
-
-    const files = await readdir('./content/reviews', 'utf-8');
-    const latestFile = files.reduce((acc, curr) => {
-        const currDate = new Date(curr.replace('.md', ''));
-        const accDate = new Date(acc.replace('.md', ''));
-        return currDate > accDate ? curr : acc;
-    });
-    const text = await readFile(`./content/reviews/${latestFile}`, 'utf-8');
-    const {data: {title, date, image}} = matter(text);
-    return {title, date, image, slug: latestFile.replace('.md', '')};
+    const res = await ReviewService.getReviews({
+        sort: "publishedAt:desc",
+        paginationPageSize: 1,
+        fields: ["title", "slug", "publishedAt"],
+        populate: {image: {fields: ["url"]}}
+    })
+    return {
+        image: OpenAPI.DOMAIN + res.data[0].attributes.image.data.attributes.url,
+        title: res.data[0].attributes.title,
+        date: res.data[0].attributes.publishedAt,
+        slug: res.data[0].attributes.slug
+    }
 }

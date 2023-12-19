@@ -1,15 +1,11 @@
 import Link from "next/link";
 import React from "react";
 import Heading from "@components/Heading";
-import {getReviews, ShortReview} from "@lib/Reviews";
+import {getReviews} from "@lib/Reviews";
 
 
 export default async function ReviewsPage() {
-    const reviewGen: AsyncGenerator<ShortReview> = getReviews();
-    const reviews: ShortReview[] = [];
-    for await (const review of reviewGen) {
-        reviews.push(review);
-    }
+    const reviews = await getReviews()
     return (
         <>
             <Heading>Reviews</Heading>

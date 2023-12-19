@@ -4,11 +4,12 @@ import {getReview, getReviewsSlug} from "@lib/Reviews";
 import ShareLinkButton from "@components/ShareLinkButton";
 
 
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
     return await getReviewsSlug()
 }
 
 export async function generateMetadata({params}) {
+    console.log(`Generating ${params[0]} on server`)
     const {slug} = params
     const {title} = await getReview(slug)
     return {
@@ -18,8 +19,8 @@ export async function generateMetadata({params}) {
 
 export default async function ReviewPage({params}) {
     const {slug} = params
+    console.log(`Generating ${slug} on server`)
     const {title, date, image, markedText} = await getReview(slug)
-    console.log(`Rendering ${title} on server`)
     return (
         <>
             <Heading>{title}</Heading>

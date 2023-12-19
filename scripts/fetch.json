@@ -1,0 +1,162 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "attributes": {
+        "slug": "hollow-knight"
+      }
+    },
+    {
+      "id": 2,
+      "attributes": {
+        "slug": "stardew-valley"
+      }
+    },
+    {
+      "id": 3,
+      "attributes": {
+        "slug": "hellblade-senuas-sacrifice"
+      }
+    },
+    {
+      "id": 4,
+      "attributes": {
+        "slug": "dont-starve-together"
+      }
+    },
+    {
+      "id": 5,
+      "attributes": {
+        "slug": "fall-guys"
+      }
+    },
+    {
+      "id": 6,
+      "attributes": {
+        "slug": "inside"
+      }
+    },
+    {
+      "id": 7,
+      "attributes": {
+        "slug": "firewatch"
+      }
+    },
+    {
+      "id": 8,
+      "attributes": {
+        "slug": "hades-2018"
+      }
+    },
+    {
+      "id": 9,
+      "attributes": {
+        "slug": "ark-survival-of-the-fittest"
+      }
+    },
+    {
+      "id": 10,
+      "attributes": {
+        "slug": "warhammer-vermintide-2"
+      }
+    },
+    {
+      "id": 11,
+      "attributes": {
+        "slug": "cuphead"
+      }
+    },
+    {
+      "id": 12,
+      "attributes": {
+        "slug": "layers-of-fear"
+      }
+    },
+    {
+      "id": 13,
+      "attributes": {
+        "slug": "no-mans-sky"
+      }
+    },
+    {
+      "id": 14,
+      "attributes": {
+        "slug": "disco-elysium"
+      }
+    },
+    {
+      "id": 15,
+      "attributes": {
+        "slug": "dead-cells"
+      }
+    },
+    {
+      "id": 16,
+      "attributes": {
+        "slug": "darkest-dungeon"
+      }
+    },
+    {
+      "id": 17,
+      "attributes": {
+        "slug": "subnautica"
+      }
+    },
+    {
+      "id": 18,
+      "attributes": {
+        "slug": "what-remains-of-edith-finch"
+      }
+    },
+    {
+      "id": 19,
+      "attributes": {
+        "slug": "the-witness"
+      }
+    },
+    {
+      "id": 20,
+      "attributes": {
+        "slug": "superhot"
+      }
+    },
+    {
+      "id": 21,
+      "attributes": {
+        "slug": "overcooked"
+      }
+    },
+    {
+      "id": 22,
+      "attributes": {
+        "slug": "a-way-out-2018"
+      }
+    },
+    {
+      "id": 23,
+      "attributes": {
+        "slug": "black-mesa"
+      }
+    },
+    {
+      "id": 24,
+      "attributes": {
+        "slug": "celeste"
+      }
+    },
+    {
+      "id": 25,
+      "attributes": {
+        "slug": "human-fall-flat"
+      }
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "page": 1,
+      "pageSize": 25,
+      "pageCount": 1,
+      "total": 25
+    }
+  }
+}

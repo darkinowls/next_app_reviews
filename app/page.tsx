@@ -11,7 +11,6 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
     const review = await getLatestReviewByDate()
-    console.log("Rendering latest review on server")
     return (
         <>
             <Heading>Indie Gamer</Heading>

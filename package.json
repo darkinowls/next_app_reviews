@@ -11,6 +11,7 @@
     "gray-matter": "^4.0.3",
     "marked": "^11.1.0",
     "next": "^14.0.4",
+    "qs": "^6.11.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -19,6 +20,7 @@
     "@types/node": "20.10.5",
     "@types/react": "18.2.45",
     "autoprefixer": "^10.4.16",
+    "openapi-typescript-codegen": "^0.25.0",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.3.6",
     "typescript": "5.3.3"
