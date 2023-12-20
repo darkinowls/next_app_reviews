@@ -4,6 +4,7 @@
 module.exports = {
     // output: "export",
     images: {
+        // unoptimized: true,
         remotePatterns:[
             {
                 port: "1337",

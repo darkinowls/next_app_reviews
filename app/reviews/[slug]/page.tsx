@@ -1,8 +1,9 @@
 import React from "react";
 import Heading from "../../../components/Heading";
-import {getReviewDetails, getReviewSlugs} from "@lib/Reviews";
+import {FullReview, getReviewDetails, getReviewSlugs} from "@lib/Reviews";
 import ShareLinkButton from "@components/ShareLinkButton";
 import {Image} from "@node_modules/next/dist/client/image-component";
+import { notFound } from 'next/navigation'
 
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
@@ -11,15 +12,23 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
 
 export async function generateMetadata({params}) {
     const {slug} = params
-    const {title} = await getReviewDetails(slug)
+    const review: FullReview | null = await getReviewDetails(slug)
+    if (review === null) {
+        notFound()
+    }
     return {
-        title: title,
+        title: review.title,
     }
 }
 
 export default async function ReviewPage({params}) {
     const {slug} = params
-    const {title, date, image, markedText, subtitle} = await getReviewDetails(slug)
+    const review: FullReview | null = await getReviewDetails(slug)
+    if (review === null) {
+        notFound()
+    }
+    const {title, date, image, markedText, subtitle} = review
+    console.log(`Rendering review ${title}`)
     return (
         <>
             <Heading>{title}</Heading>

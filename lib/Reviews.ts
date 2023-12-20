@@ -18,7 +18,7 @@ export interface ShortReview {
 }
 
 
-export const getReviewDetails = async (slug: string): Promise<FullReview> => {
+export const getReviewDetails = async (slug: string): Promise<FullReview | null> => {
     const reviews = await ReviewService.getReviews({
         filters: {slug: {$eq: slug}},
         fields: ["body", "title", "publishedAt", "subtitle"],
@@ -26,6 +26,9 @@ export const getReviewDetails = async (slug: string): Promise<FullReview> => {
         paginationPageSize: 1,
         paginationWithCount: false
     })
+    if (reviews.data.length === 0) {
+        return null
+    }
     const attributes = reviews.data[0].attributes
     return {
         title: attributes.title,

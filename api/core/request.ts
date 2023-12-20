@@ -2,12 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import { ApiError } from './ApiError';
+import { ApiError } from '@api';
 import type { ApiRequestOptions } from './ApiRequestOptions';
 import type { ApiResult } from './ApiResult';
-import { CancelablePromise } from './CancelablePromise';
+import { CancelablePromise } from '@api';
 import type { OnCancel } from './CancelablePromise';
-import type { OpenAPIConfig } from './OpenAPI';
+import type { OpenAPIConfig } from '@api';
 
 export const isDefined = <T>(value: T | null | undefined): value is Exclude<T, null | undefined> => {
     return value !== undefined && value !== null;
@@ -206,6 +206,9 @@ export const sendRequest = async (
         body: body ?? formData,
         method: options.method,
         signal: controller.signal,
+        next: {
+            revalidate: 10,
+        }
     };
 
     if (config.WITH_CREDENTIALS) {

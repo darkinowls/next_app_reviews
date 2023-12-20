@@ -4,9 +4,11 @@ import Heading from "@components/Heading";
 import {getReviews} from "@lib/Reviews";
 import {Image} from "@node_modules/next/dist/client/image-component";
 
+export const revalidate = 5 // seconds
 
 export default async function ReviewsPage() {
     const reviews = await getReviews()
+    console.log("Rendering reviews page")
     return (
         <>
             <Heading>Reviews</Heading>

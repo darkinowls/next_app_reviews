@@ -5,6 +5,8 @@ import {getReviews} from "@lib/Reviews";
 import {Metadata} from "@node_modules/next";
 import {Image} from "@node_modules/next/dist/client/image-component";
 
+export const revalidate = 5 // seconds
+
 export const metadata: Metadata = {
     description: "Only the best games I reviewed for you",
     keywords: "indie, games, review",
@@ -12,6 +14,7 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
     const reviews = await getReviews(3)
+    console.log("Rendering home page")
     return (
         <>
             <Heading>Indie Gamer</Heading>
@@ -27,7 +30,7 @@ export default async function HomePage() {
                                    height={180}
                                    className={"rounded-t-2xl sm:rounded-l-2xl sm:rounded-r-none"}
                                    alt={review.title}/>
-                            <div className={"px-2 py-1 text-center sm:text-left"} >
+                            <div className={"px-2 py-1 text-center sm:text-left"}>
                                 <h2 className={"font-orbitron font-semibold"}>{review.title}</h2>
                                 <p className={"hidden pt-2 sm:block"}>
                                     {review.subtitle}

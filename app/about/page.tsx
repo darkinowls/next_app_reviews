@@ -10,6 +10,9 @@ const AboutPage = () => {
     return (
         <div>
             <Heading>About</Heading>
+            <p>
+                AAAAAAAAAAAAa
+            </p>
         </div>
     );
 };
