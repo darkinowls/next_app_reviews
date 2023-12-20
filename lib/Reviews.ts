@@ -12,20 +12,20 @@ export interface FullReview {
 
 
 export const getReview = async (slug: string): Promise<FullReview> => {
-
-
     const review = await ReviewService.getReviews({
-        fields: ["slug"],
+        filters: {slug: {$eq: slug}},
+        fields: ["body", "title", "publishedAt"],
         populate: {image: {fields: ["url"]}},
+        paginationPageSize: 1,
+        paginationWithCount: false
     })
 
     const {attributes} = review.data[0]
-    console.log(attributes.body)
     return {
         title: attributes.title,
-        date: attributes.publishedAt,
+        date: attributes.publishedAt.slice(0, 'YYYY-MM-DD'.length),
         image: OpenAPI.DOMAIN + attributes.image.data.attributes.url,
-        markedText: ""
+        markedText: await marked(attributes.body)
     };
 }
 
