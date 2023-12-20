@@ -1,11 +1,12 @@
 import React from "react";
 import Heading from "../../../components/Heading";
-import {getReview, getReviewsSlug} from "@lib/Reviews";
+import {getReview, getReviewSlugs} from "@lib/Reviews";
 import ShareLinkButton from "@components/ShareLinkButton";
+import {Image} from "@node_modules/next/dist/client/image-component";
 
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
-    return await getReviewsSlug()
+    return await getReviewSlugs()
 }
 
 export async function generateMetadata({params}) {
@@ -26,7 +27,7 @@ export default async function ReviewPage({params}) {
                 <p className={"font-bold italic"}>{date}</p>
                 <ShareLinkButton/>
             </div>
-            <img src={image}
+            <Image src={image}
                  width={640}
                  height={360}
                  className={"rounded-2xl mb-2"}

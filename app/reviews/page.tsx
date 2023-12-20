@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import Heading from "@components/Heading";
 import {getReviews} from "@lib/Reviews";
+import {Image} from "@node_modules/next/dist/client/image-component";
 
 
 export default async function ReviewsPage() {
@@ -17,8 +18,8 @@ export default async function ReviewsPage() {
                             (
                                 <li key={review.slug}
                                     className={"bg-white border w-80 rounded-2xl shadow hover:shadow-xl"}>
-                                    <Link href={`/reviews/${review.slug}`}>
-                                        <img src={review.image}
+                                    <Link  href={`/reviews/${review.slug}`}>
+                                        <Image src={review.image}
                                              width={320}
                                              height={180}
                                              className={"rounded-t-2xl mb-2"}

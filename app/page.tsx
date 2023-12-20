@@ -3,6 +3,7 @@ import Link from "@node_modules/next/link";
 import React from "react";
 import {getLatestReviewByDate} from "@lib/Reviews";
 import {Metadata} from "@node_modules/next";
+import {Image} from "@node_modules/next/dist/client/image-component";
 
 export const metadata: Metadata = {
     description: "Only the best games I reviewed for you",
@@ -17,7 +18,7 @@ export default async function HomePage() {
             <p className={"pb-2"}>Only the best games I reviewed for you</p>
             <div className={"bg-white border rounded-2xl shadow w-80 hover:shadow-xl sm:w-full"}>
                 <Link href={`/reviews/${review.slug}`} className={"flex flex-col sm:flex-row"}>
-                    <img src={review.image}
+                    <Image src={review.image}
                          width={320}
                          height={180}
                          className={"rounded-t-2xl sm:rounded-l-2xl sm:rounded-r-none"}

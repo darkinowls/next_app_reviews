@@ -7,7 +7,6 @@ const ShareLinkButton = () => {
     const [clicked, setClicked] = useState(false)
 
     const handleClick = (_: React.MouseEvent) => {
-        console.log("Share link")
         navigator.clipboard.writeText(location.href)
         setClicked(true)
         setTimeout(() => setClicked(false), 1000)

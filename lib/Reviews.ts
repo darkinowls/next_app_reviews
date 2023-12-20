@@ -1,5 +1,3 @@
-import {readdir, readFile} from "fs/promises";
-import matter from "@node_modules/gray-matter";
 import {marked} from "@node_modules/marked";
 import {OpenAPI, ReviewService} from "@api";
 
@@ -12,15 +10,14 @@ export interface FullReview {
 
 
 export const getReview = async (slug: string): Promise<FullReview> => {
-    const review = await ReviewService.getReviews({
+    const reviews = await ReviewService.getReviews({
         filters: {slug: {$eq: slug}},
         fields: ["body", "title", "publishedAt"],
         populate: {image: {fields: ["url"]}},
         paginationPageSize: 1,
         paginationWithCount: false
     })
-
-    const {attributes} = review.data[0]
+    const attributes = reviews.data[0].attributes
     return {
         title: attributes.title,
         date: attributes.publishedAt.slice(0, 'YYYY-MM-DD'.length),
@@ -54,9 +51,11 @@ export const getReviews = async (): Promise<ShortReview[]> => {
     }));
 };
 
-export const getReviewsSlug = async (): Promise<{ slug: string }[]> => {
+export const getReviewSlugs = async (): Promise<{ slug: string }[]> => {
     const res = await ReviewService.getReviews({
         fields: ["slug"],
+        sort: "publishedAt:desc",
+        paginationPageSize: 1000,
     })
     return res.data.map((r) => ({slug: r.attributes.slug}));
 }
