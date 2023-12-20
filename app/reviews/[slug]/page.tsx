@@ -1,6 +1,6 @@
 import React from "react";
 import Heading from "../../../components/Heading";
-import {getReview, getReviewSlugs} from "@lib/Reviews";
+import {getReviewDetails, getReviewSlugs} from "@lib/Reviews";
 import ShareLinkButton from "@components/ShareLinkButton";
 import {Image} from "@node_modules/next/dist/client/image-component";
 
@@ -11,7 +11,7 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
 
 export async function generateMetadata({params}) {
     const {slug} = params
-    const {title} = await getReview(slug)
+    const {title} = await getReviewDetails(slug)
     return {
         title: title,
     }
@@ -19,7 +19,7 @@ export async function generateMetadata({params}) {
 
 export default async function ReviewPage({params}) {
     const {slug} = params
-    const {title, date, image, markedText} = await getReview(slug)
+    const {title, date, image, markedText} = await getReviewDetails(slug)
     return (
         <>
             <Heading>{title}</Heading>
@@ -28,10 +28,11 @@ export default async function ReviewPage({params}) {
                 <ShareLinkButton/>
             </div>
             <Image src={image}
-                 width={640}
-                 height={360}
-                 className={"rounded-2xl mb-2"}
-                 alt={title}/>
+                   priority
+                   width={640}
+                   height={360}
+                   className={"rounded-2xl mb-2"}
+                   alt={title}/>
 
             <article dangerouslySetInnerHTML={{__html: markedText}} className={"prose max-w-screen-sm"}></article>
         </>

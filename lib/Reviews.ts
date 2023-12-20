@@ -8,8 +8,15 @@ export interface FullReview {
     markedText: string;
 }
 
+export interface ShortReview {
+    title: string;
+    date: string;
+    image: string;
+    slug: string;
+}
 
-export const getReview = async (slug: string): Promise<FullReview> => {
+
+export const getReviewDetails = async (slug: string): Promise<FullReview> => {
     const reviews = await ReviewService.getReviews({
         filters: {slug: {$eq: slug}},
         fields: ["body", "title", "publishedAt"],
@@ -26,18 +33,10 @@ export const getReview = async (slug: string): Promise<FullReview> => {
     };
 }
 
-
-export interface ShortReview {
-    title: string;
-    date: string;
-    image: string;
-    slug: string;
-}
-
-export const getReviews = async (): Promise<ShortReview[]> => {
+export const getReviews = async (pageSize: number = 6): Promise<ShortReview[]> => {
     const res = await ReviewService.getReviews({
         sort: "publishedAt:desc",
-        // paginationPageSize: 5,
+        paginationPageSize: pageSize,
         fields: ["title", "slug", "publishedAt"],
         populate: {image: {fields: ["url"]}}
     })
@@ -58,20 +57,4 @@ export const getReviewSlugs = async (): Promise<{ slug: string }[]> => {
         paginationPageSize: 1000,
     })
     return res.data.map((r) => ({slug: r.attributes.slug}));
-}
-
-
-export const getLatestReviewByDate = async (): Promise<ShortReview> => {
-    const res = await ReviewService.getReviews({
-        sort: "publishedAt:desc",
-        paginationPageSize: 1,
-        fields: ["title", "slug", "publishedAt"],
-        populate: {image: {fields: ["url"]}}
-    })
-    return {
-        image: OpenAPI.DOMAIN + res.data[0].attributes.image.data.attributes.url,
-        title: res.data[0].attributes.title,
-        date: res.data[0].attributes.publishedAt,
-        slug: res.data[0].attributes.slug
-    }
 }
