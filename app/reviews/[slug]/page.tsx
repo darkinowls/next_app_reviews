@@ -19,10 +19,13 @@ export async function generateMetadata({params}) {
 
 export default async function ReviewPage({params}) {
     const {slug} = params
-    const {title, date, image, markedText} = await getReviewDetails(slug)
+    const {title, date, image, markedText, subtitle} = await getReviewDetails(slug)
     return (
         <>
             <Heading>{title}</Heading>
+            <p className={"font-semibold"}>
+                {subtitle}
+            </p>
             <div className={"flex gap-3 py-1 items-center"}>
                 <p className={"font-bold italic"}>{date}</p>
                 <ShareLinkButton/>
