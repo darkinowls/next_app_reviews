@@ -5,7 +5,6 @@ import {getReviews} from "@lib/Reviews";
 import {Metadata} from "@node_modules/next";
 import {Image} from "@node_modules/next/dist/client/image-component";
 
-export const revalidate = 5 // seconds
 
 export const metadata: Metadata = {
     description: "Only the best games I reviewed for you",
