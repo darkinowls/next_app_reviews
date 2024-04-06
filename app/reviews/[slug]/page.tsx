@@ -22,6 +22,7 @@ export async function generateMetadata({params}) {
 }
 
 export default async function ReviewPage({params}) {
+
     const {slug} = params
     const review: FullReview | null = await getReviewDetails(slug)
     if (review === null) {

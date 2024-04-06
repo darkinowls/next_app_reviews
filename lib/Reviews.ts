@@ -17,6 +17,11 @@ export interface ShortReview {
     subtitle?: string;
 }
 
+export interface ReviewsPage {
+    reviews: ShortReview[];
+    totalPages: number;
+}
+
 
 export const getReviewDetails = async (slug: string): Promise<FullReview | null> => {
     const reviews = await ReviewService.getReviews({
@@ -39,22 +44,29 @@ export const getReviewDetails = async (slug: string): Promise<FullReview | null>
     };
 }
 
-export const getReviews = async (pageSize: number = 6): Promise<ShortReview[]> => {
+export const getReviewsPage = async (pageInt: number = 0, pageSize: number = 6): Promise<ReviewsPage> => {
     const res = await ReviewService.getReviews({
         sort: "publishedAt:desc",
-        paginationPageSize: pageSize,
+        paginationStart: pageInt * pageSize,
+        paginationLimit: pageSize,
         fields: ["title", "slug", "publishedAt", "subtitle"],
-        populate: {image: {fields: ["url"]}}
+        populate: {image: {fields: ["url"]}},
+        paginationWithCount: true
     })
+    console.log(res)
     const reviews = res.data
 
-    return reviews.map((r) => ({
-        title: r.attributes.title,
-        date: r.attributes.publishedAt,
-        image: OpenAPI.DOMAIN + r.attributes.image.data.attributes.url,
-        slug: r.attributes.slug,
-        subtitle: r.attributes.subtitle,
-    }));
+    return {
+        reviews: reviews.map((r) => ({
+            title: r.attributes.title,
+            date: r.attributes.publishedAt,
+            image: OpenAPI.DOMAIN + r.attributes.image.data.attributes.url,
+            slug: r.attributes.slug,
+            subtitle: r.attributes.subtitle,
+        })),
+        totalPages: Math.floor(res.meta.pagination.total / pageSize)
+    };
+
 };
 
 export const getReviewSlugs = async (): Promise<{ slug: string }[]> => {

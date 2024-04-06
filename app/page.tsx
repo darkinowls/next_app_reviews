@@ -1,7 +1,7 @@
 import Heading from "@components/Heading";
 import Link from "@node_modules/next/link";
 import React from "react";
-import {getReviews} from "@lib/Reviews";
+import {getReviewsPage} from "@lib/Reviews";
 import {Metadata} from "@node_modules/next";
 import {Image} from "@node_modules/next/dist/client/image-component";
 
@@ -12,14 +12,14 @@ export const metadata: Metadata = {
 }
 
 export default async function HomePage() {
-    const reviews = await getReviews(3)
+    const rPage = await getReviewsPage(3)
     console.log("Rendering home page")
     return (
         <>
             <Heading>Indie Gamer</Heading>
             <p className={"pb-2"}>Only the best games I reviewed for you</p>
             <ul className={"mt-3 gap-3 flex flex-col"}>
-                {reviews.map((review, index) => (
+                {rPage.reviews.map((review, index) => (
                     <li key={review.slug}
                         className={"bg-white border rounded-2xl shadow w-80 hover:shadow-xl mx-auto sm:w-full"}>
                         <Link href={`/reviews/${review.slug}`} className={"flex flex-col sm:flex-row"}>
