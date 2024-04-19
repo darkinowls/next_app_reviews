@@ -2,7 +2,8 @@
 import React, {useEffect, useState} from 'react';
 import {Combobox} from "@headlessui/react";
 import {useRouter} from "next/navigation";
-import {getSearchReviews} from "@lib/Reviews";
+import {SearchReview} from "@lib/Reviews";
+import {NextResponse} from "next/server";
 
 
 const SearchBox = () => {
@@ -20,9 +21,10 @@ const SearchBox = () => {
             return
         }
 
-        const search = () => getSearchReviews(query).then(
-            (res) => {
-                setReviews(res)
+        const search = () => fetch(`/api/search?query=${query}`).then(
+            async (res: NextResponse) => {
+                const rs: SearchReview[] = await res.json()
+                setReviews(rs)
             }
         )
         const searchTO = setTimeout(search, 300)

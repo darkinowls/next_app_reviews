@@ -1,3 +1,4 @@
+import 'server-only'
 import {marked} from "@node_modules/marked";
 import {OpenAPI, ReviewService} from "@api";
 
@@ -86,7 +87,9 @@ export const getReviewsPage = async (pageInt: number = 0, pageSize: number = 6):
 
 };
 
-export const getReviewSlugs = async (): Promise<{ slug: string }[]> => {
+export const getReviewSlugs = async (): Promise<{
+    slug: string
+}[]> => {
     const res = await ReviewService.getReviews({
         fields: ["slug"],
         sort: "publishedAt:desc",
