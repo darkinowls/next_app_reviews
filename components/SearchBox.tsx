@@ -16,21 +16,30 @@ const SearchBox = () => {
         useState([])
 
     useEffect(() => {
+        // 2nd action (see below 1st)
         if (query === '' || query.length <= 1) {
             setReviews([])
             return
         }
-
-        const search = () => fetch(`/api/search?query=${query}`).then(
-            async (res: NextResponse) => {
-                const rs: SearchReview[] = await res.json()
-                setReviews(rs)
+        const cancelC = new AbortController()
+        const fetchCall = async () => {
+            let res: Response
+            try {
+                res = await fetch(
+                    `/api/search?query=${query}`,
+                    {signal: cancelC.signal}
+                )
+            } catch (_) {
+                return // abort
             }
-        )
-        const searchTO = setTimeout(search, 300)
-
-        return () => clearTimeout(searchTO)
-
+            const rs: SearchReview[] = await res.json()
+            setReviews(rs)
+        }
+        const TOCall = setTimeout(fetchCall, 300)
+        return () => {
+            cancelC.abort('query is changed in SearchBox')
+            clearTimeout(TOCall)
+        } // 1st action
     }, [query]);
 
 
