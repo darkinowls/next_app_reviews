@@ -1,21 +1,25 @@
 import Link from "next/link";
 import React from "react";
 import Heading from "@components/Heading";
-import {getReviewsPage} from "@lib/Reviews";
+import {getReviewsPage, getSearchReviews} from "@lib/Reviews";
 import {Image} from "@node_modules/next/dist/client/image-component";
+import PageBar from "@components/PageBar";
+import SearchBox from "@components/SearchBox";
+
 
 export default async function ReviewsPage({searchParams: {page}}) {
     const pageInt = parsePage(page)
     const rPage = await getReviewsPage(pageInt)
+    // const searchReviews = await getSearchReviews() SERVER SIDE RENDERING
     console.log("Rendering reviews page")
     return (
         <>
             <Heading>Reviews</Heading>
-            <div className={"flex gap-2 pb-3"}>
-                {pageInt !== 1 && <Link href={`/reviews?page=${pageInt - 1}`}>&lt;</Link>}
-                <span>Page {pageInt} of {rPage.totalPages}</span>
-                {rPage.totalPages > pageInt && <Link href={`/reviews?page=${pageInt + 1}`}>&gt;</Link>}
+            <div className={"flex justify-between pb-3 items-center"}>
+                <PageBar pageInt={pageInt} totalPages={rPage.totalPages} href={'/reviews'}></PageBar>
+                <SearchBox/>
             </div>
+
             <nav>
                 <ul className={"flex gap-4 flex-wrap justify-center"}>
 

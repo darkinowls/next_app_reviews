@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { ReviewResponseDataObject } from './ReviewResponseDataObject';
+import type { ReviewResponseDataObject } from '@api';
 
 export type ReviewResponse = {
     data?: ReviewResponseDataObject;

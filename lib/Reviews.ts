@@ -22,6 +22,23 @@ export interface ReviewsPage {
     totalPages: number;
 }
 
+export interface SearchReview {
+    title: string;
+    slug: string;
+}
+
+export const getSearchReviews = async (
+    search: string
+): Promise<SearchReview[]> => {
+    const res = await ReviewService.getReviews({
+        filters: {title: {$containsi: search}},
+        fields: ["title", "slug"],
+        sort: "title",
+        paginationPageSize: 10,
+    })
+    return res.data.map((r) => ({title: r.attributes.title, slug: r.attributes.slug}));
+}
+
 
 export const getReviewDetails = async (slug: string): Promise<FullReview | null> => {
     const reviews = await ReviewService.getReviews({
@@ -53,7 +70,7 @@ export const getReviewsPage = async (pageInt: number = 0, pageSize: number = 6):
         populate: {image: {fields: ["url"]}},
         paginationWithCount: true
     })
-    console.log(res)
+    // console.log(res)
     const reviews = res.data
 
     return {
