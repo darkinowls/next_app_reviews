@@ -11,11 +11,7 @@ RUN npx pnpm install
 RUN npx pnpm build
 
 
-#FROM prod as build
-
 FROM node:20.12.1-alpine3.19
-
-#FROM gcr.io/distroless/nodejs20
 
 WORKDIR /app
 

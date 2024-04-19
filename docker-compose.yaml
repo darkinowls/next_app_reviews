@@ -7,5 +7,5 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "1337:3000"
     command: server.js
