@@ -1,14 +1,18 @@
+
+CMS_URL = new URL(process.env.CMS_DOMAIN)
+
 /**
  * @type {import('next').NextConfig}
  */
 module.exports = {
+
     // output: "export",
     images: {
         // unoptimized: true,
-        remotePatterns:[
+        remotePatterns: [
             {
-                port: "1337",
-                hostname: 'localhost',
+                port: CMS_URL.port,
+                hostname: CMS_URL.hostname,
                 pathname: "/uploads/**",
             }
         ]

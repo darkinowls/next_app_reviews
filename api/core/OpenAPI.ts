@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ApiRequestOptions } from './ApiRequestOptions';
+import type {ApiRequestOptions} from './ApiRequestOptions';
 
 type Resolver<T> = (options: ApiRequestOptions) => Promise<T>;
 type Headers = Record<string, string>;
@@ -20,9 +20,10 @@ export type OpenAPIConfig = {
     ENCODE_PATH?: ((path: string) => string) | undefined;
 };
 
+
 export const OpenAPI: OpenAPIConfig = {
-    DOMAIN: 'http://localhost:1337',
-    BASE: 'http://localhost:1337/api',
+    DOMAIN: process.env.CMS_DOMAIN,
+    BASE: process.env.CMS_BASE,
     VERSION: '1.0.0',
     WITH_CREDENTIALS: false,
     CREDENTIALS: 'include',
