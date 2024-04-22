@@ -1,6 +1,6 @@
 import {CommentData} from "@components/comment/CommentItem";
-import {PostCommentBody} from "@app/api/create-comment/route";
-import {PrismaClient} from "@prisma/client";
+import {revalidateTag} from "@node_modules/next/dist/server/web/spec-extension/revalidate-tag";
+import { PrismaClient } from "@prisma/client";
 
 
 const getPrisma = (): PrismaClient => {
@@ -27,6 +27,9 @@ export const getCommentsBySlug = async (slug: string): Promise<CommentData[]> =>
             where: {
                 reviewSlug: slug
             },
+            orderBy: {
+                createdAt: 'desc'
+            },
             select: {
                 id: true,
                 user: true,
@@ -35,6 +38,12 @@ export const getCommentsBySlug = async (slug: string): Promise<CommentData[]> =>
         }
     )
     return cs
+}
+
+export interface PostCommentBody {
+    user: string
+    content: string
+    slug: string
 }
 
 export const createComment = async (body: PostCommentBody): Promise<{ id: number }> => {
@@ -48,6 +57,7 @@ export const createComment = async (body: PostCommentBody): Promise<{ id: number
             id: true,
         }
     })
+    revalidateTag("reviews")
     return res
 }
 

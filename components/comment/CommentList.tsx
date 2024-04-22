@@ -8,20 +8,11 @@ interface CommentListProps {
 
 const CommentList = async (commentListProps: CommentListProps) => {
 
+    console.log("Rendering CommentList")
+
     const {slug} = commentListProps
 
     console.log(`Fetching comments for ${slug}`)
-
-    // const res = await fetch(
-    //     `/api/get-comments?query=${encodeURIComponent(slug)}` ,
-    //     {
-    //         method: 'GET',
-    //         next: {
-    //             tags: [slug]
-    //         }
-    //     }
-    // )
-    // const cs: CommentData[] = await res.json()
 
     const cs: CommentData[] = await getCommentsBySlug(slug)
 

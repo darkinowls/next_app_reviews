@@ -1,9 +1,10 @@
 'use client';
+
 import React from 'react';
 import {SearchReview} from "@lib/Reviews";
-import {PostCommentBody} from "@app/api/create-comment/route";
+import {createCommentAction} from "@components/comment/CreateCommentAction";
 import {useFormik} from "formik";
-import {useRouter} from "next/navigation";
+
 
 interface Props {
     searchReview: SearchReview
@@ -11,45 +12,30 @@ interface Props {
 
 const CommentForm = (props: Props) => {
     const {searchReview} = props
-    const router = useRouter()
 
-    const formik = useFormik(
-        {
-            initialValues: {
-                user: '',
-                content: ''
-            },
-            validate: (values) => {
-                const errors: Partial<typeof values> = {}
-                if (values.user.length === 0) {
-                    errors.user = 'Name is required'
-                }
-                if (values.content.length === 0) {
-                    errors.content = 'Content is required'
-                }
-                return errors
-            },
-            onSubmit: async (values) => {
-                const body: PostCommentBody = {
-                    user: values.user,
-                    content: values.content,
-                    slug: searchReview.slug
-                }
-
-                const res = await fetch('/api/create-comment', {
-                    method: 'POST',
-                    body: JSON.stringify(body),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                router.refresh()
+    const formik = useFormik({
+        initialValues: {
+            user: "",
+            content: ""
+        },
+        onSubmit: () => {},
+        validate: (values) => {
+            const errors: any = {}
+            if (!values.content) {
+                errors.content = "Comment is required"
             }
+            if (values.content.length < 5) {
+                errors.content = "Comment must be at least 10 characters"
+            }
+            return errors
         }
-    )
+    })
+
 
     return (
-        <form onSubmit={formik.handleSubmit} className={"flex flex-col gap-2 mt-3 p-3 bg-white rounded border"}>
+        <form
+            action={(formData) => createCommentAction(formData, searchReview.slug)}
+            className={"flex flex-col gap-2 mt-3 p-3 bg-white rounded border"}>
             <p className={"text-lg"}> Played <span className={"font-semibold"}>
                 {searchReview.title}
             </span>? Comment it!</p>
@@ -69,7 +55,7 @@ const CommentForm = (props: Props) => {
                     name={"content"} id={"content"} className={"border p-1 border-gray-800 rounded flex-grow"}/>
             </div>
             <div className={"text-red-500 text-sm"}>
-                {formik.errors.content}
+                    {formik.errors.content}
             </div>
             <button type={"submit"}
                     className={"border rounded bg-orange-200 hover:bg-orange-300 mx-auto px-10 py-1 text-lg"}>
