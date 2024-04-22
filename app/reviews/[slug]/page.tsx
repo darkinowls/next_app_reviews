@@ -3,7 +3,11 @@ import Heading from "../../../components/Heading";
 import {FullReview, getReviewDetails, getReviewSlugs} from "@lib/Reviews";
 import ShareLinkButton from "@components/ShareLinkButton";
 import {Image} from "@node_modules/next/dist/client/image-component";
-import { notFound } from 'next/navigation'
+import {notFound} from 'next/navigation'
+import {ChatBubbleBottomCenterIcon, ChatBubbleBottomCenterTextIcon} from "@heroicons/react/16/solid";
+import CommentList from "@components/comment/CommentList";
+import CommentHeader from "@components/comment/CommentHeader";
+import CommentForm from "@components/comment/CommentForm";
 
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
@@ -48,6 +52,19 @@ export default async function ReviewPage({params}) {
                    alt={title}/>
 
             <article dangerouslySetInnerHTML={{__html: markedText}} className={"prose max-w-screen-sm"}></article>
+            <section className={"mt-3 pt-3 border-t border-dashed"}>
+                <div className={"flex flex-col"}>
+                    <CommentHeader/>
+
+                    <CommentForm gameName={review.title}/>
+
+                    <CommentList/>
+                </div>
+            </section>
         </>
     );
 }
+
+
+
+
