@@ -1,6 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
 import {revalidateTag} from "@node_modules/next/dist/server/web/spec-extension/revalidate-tag";
-import {CACHE_TAG_REVIEWS} from "@api/core/request";
+import {CACHE_TAG_REVIEWS} from "@CACHE_TAGS";
 
 const expectedKey = "dsaasdsadsafasef24gdas2"
 

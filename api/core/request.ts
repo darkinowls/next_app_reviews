@@ -8,9 +8,9 @@ import type {ApiResult} from './ApiResult';
 import {CancelablePromise} from '@api';
 import type {OnCancel} from './CancelablePromise';
 import type {OpenAPIConfig} from '@api';
+import {CACHE_TAG_REVIEWS} from "@CACHE_TAGS";
 
 
-export const CACHE_TAG_REVIEWS = 'reviews';
 export const isDefined = <T>(value: T | null | undefined): value is Exclude<T, null | undefined> => {
     return value !== undefined && value !== null;
 };

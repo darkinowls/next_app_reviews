@@ -56,9 +56,11 @@ export default async function ReviewPage({params}) {
                 <div className={"flex flex-col"}>
                     <CommentHeader/>
 
-                    <CommentForm gameName={review.title}/>
+                    <CommentForm
+                        searchReview={{slug: slug, title: review.title}}
+                    />
 
-                    <CommentList/>
+                    <CommentList slug={slug}/>
                 </div>
             </section>
         </>

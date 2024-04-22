@@ -1,46 +1,39 @@
 import React from 'react';
-import {UserCircleIcon} from "@heroicons/react/16/solid";
+import CommentItem, {CommentData} from "@components/comment/CommentItem";
+import {getCommentsBySlug} from "@prisma/Database";
 
-interface CommentData {
-    id: number,
-    name: string,
-    comment: string
+interface CommentListProps {
+    slug: string
 }
 
-interface CommentProps {
-    commentData: CommentData
+const CommentList = async (commentListProps: CommentListProps) => {
 
-}
+    const {slug} = commentListProps
 
-const cs: CommentData[] = [
-    {id: 1, name: 'John', comment: 'This is a comment'},
-    {id: 2, name: 'Jane', comment: 'This is a comment'},
-    {id: 3, name: 'Doe', comment: 'This is a comment'},
-]
+    console.log(`Fetching comments for ${slug}`)
 
-///////////////////////////////////////////////////////////
+    // const res = await fetch(
+    //     `/api/get-comments?query=${encodeURIComponent(slug)}` ,
+    //     {
+    //         method: 'GET',
+    //         next: {
+    //             tags: [slug]
+    //         }
+    //     }
+    // )
+    // const cs: CommentData[] = await res.json()
 
-const CommentList = () => {
+    const cs: CommentData[] = await getCommentsBySlug(slug)
+
+
     return (
         <ul className={"border rounded my-3"}>
             {cs.map(c => (
-                <Comment key={c.id} commentData={c}/>
+                <CommentItem key={c.id} commentData={c}/>
             ))}
         </ul>
     );
 };
 
-
-const Comment = (commentProps: CommentProps) => {
-    const {commentData} = commentProps
-    return (
-        <li className={"border p-2  odd:bg-orange-100"}>
-            <div className={"flex text-slate-500 items-center gap-2 pb-2"}>
-                <UserCircleIcon className={"h-6 w-6"}/>
-                <h3 className={"text-lg"}>{commentData.name}</h3></div>
-            <p className={"italic"}>{commentData.id}</p>
-        </li>
-    );
-}
 
 export default CommentList;
