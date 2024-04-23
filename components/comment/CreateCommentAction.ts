@@ -1,23 +1,21 @@
 'use server';
 
-import {createComment} from "@prisma/Database";
+import {createComment, PostCommentBody} from "@prisma/Database";
 import {revalidatePath} from "next/dist/server/web/spec-extension/revalidate-path";
 import {redirect} from "next/dist/client/components/redirect";
 
-export const createCommentAction = async (formData: FormData, slug: string) : Promise<{error: string} | null> => {
-    console.log(formData)
-    const user = formData.get('user')
-    const content = formData.get('content')
-    if (!user || !content) {
+
+export const createCommentAction = async (post: PostCommentBody): Promise<{ error: string } | null> => {
+    if (!post.user || post.content.length < 5) {
         return {error: "Please fill in all the fields"}
     }
     await createComment({
-        user: user as string,
-        content: content as string,
-        slug: slug
+        user: post.user,
+        content: post.content,
+        slug: post.slug
     })
 
-    const path = `/reviews/${slug}`
+    const path = `/reviews/${post.slug}`
     revalidatePath(path)
     redirect(path)
 }

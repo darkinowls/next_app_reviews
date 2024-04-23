@@ -3,6 +3,7 @@ import './globals.css'
 import NavBar from "../components/NavBar";
 import {exo2, orbitron} from "@fonts";
 import {Metadata} from "@node_modules/next";
+import {ToastContainer} from "react-toastify";
 
 
 export const metadata: Metadata = {
