@@ -18,7 +18,7 @@ const CommentList = async (commentListProps: CommentListProps) => {
 
 
     return (
-        <ul className={"border rounded my-3"}>
+        <ul className={"border rounded-t-2xl my-3"}>
             {cs.map(c => (
                 <CommentItem key={c.id} commentData={c}/>
             ))}

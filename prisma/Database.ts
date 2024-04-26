@@ -27,6 +27,9 @@ export const commentScheme = z.object({
 })
 
 export const getCommentsBySlug = async (slug: string): Promise<CommentData[]> => {
+
+    // await new Promise((resolve) => setTimeout(resolve, 3000))
+
     const cs: CommentData[] = await getPrisma().comment.findMany(
         {
             where: {

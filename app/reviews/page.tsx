@@ -8,6 +8,8 @@ import SearchBox from "@components/SearchBox";
 
 
 export default async function ReviewsPage({searchParams: {page}}) {
+
+
     const pageInt = parsePage(page)
     const rPage = await getReviewsPage(pageInt)
     // const searchReviews = await getSearchReviews() SERVER SIDE RENDERING

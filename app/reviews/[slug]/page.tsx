@@ -1,13 +1,13 @@
-import React from "react";
+import React, {Suspense} from "react";
 import Heading from "../../../components/Heading";
 import {FullReview, getReviewDetails, getReviewSlugs} from "@lib/Reviews";
 import ShareLinkButton from "@components/ShareLinkButton";
 import {Image} from "@node_modules/next/dist/client/image-component";
 import {notFound} from 'next/navigation'
-import {ChatBubbleBottomCenterIcon, ChatBubbleBottomCenterTextIcon} from "@heroicons/react/16/solid";
 import CommentList from "@components/comment/CommentList";
 import CommentHeader from "@components/comment/CommentHeader";
 import CommentForm from "@components/comment/CommentForm";
+import CommentListSkeleton from "@components/comment/CommentListSkeleton";
 
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
@@ -26,6 +26,8 @@ export async function generateMetadata({params}) {
 }
 
 export default async function ReviewPage({params}) {
+
+    await new Promise((r) => setTimeout(r, 3000))
 
     const {slug} = params
     const review: FullReview | null = await getReviewDetails(slug)
@@ -59,8 +61,10 @@ export default async function ReviewPage({params}) {
                     <CommentForm
                         searchReview={{slug: slug, title: review.title}}
                     />
+                    <Suspense fallback={<CommentListSkeleton/>}>
+                        <CommentList slug={slug}/>
+                    </Suspense>
 
-                    <CommentList slug={slug}/>
                 </div>
             </section>
         </>
