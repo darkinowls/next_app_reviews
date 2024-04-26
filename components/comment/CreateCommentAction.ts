@@ -1,9 +1,8 @@
 'use server';
 
-import {commentScheme, createComment, PostCommentBody} from "@prisma/Database";
 import {revalidatePath} from "next/dist/server/web/spec-extension/revalidate-path";
 import {redirect} from "next/dist/client/components/redirect";
-import {z} from "zod";
+import {commentScheme, createComment, PostCommentBody} from "@prisma/Comments";
 
 
 export const createCommentAction = async (post: PostCommentBody): Promise<{ error: string } | null> => {

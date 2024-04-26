@@ -1,6 +1,6 @@
 import React from 'react';
 import CommentItem, {CommentData} from "@components/comment/CommentItem";
-import {getCommentsBySlug} from "@prisma/Database";
+import {getCommentsBySlug} from "@prisma/Comments";
 
 interface CommentListProps {
     slug: string

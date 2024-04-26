@@ -1,6 +1,5 @@
 import React from 'react';
-import CommentItem, {CommentData} from "@components/comment/CommentItem";
-import {getCommentsBySlug} from "@prisma/Database";
+import CommentItem from "@components/comment/CommentItem";
 
 
 const CommentListSkeleton = () => {

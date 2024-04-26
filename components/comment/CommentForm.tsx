@@ -3,8 +3,8 @@
 import React from 'react';
 import {SearchReview} from "@lib/Reviews";
 import {useFormik} from "formik";
-import {commentScheme} from "@prisma/Database";
 import {createCommentAction} from "@components/comment/CreateCommentAction";
+import {commentScheme} from "@prisma/Comments";
 
 
 interface Props {
