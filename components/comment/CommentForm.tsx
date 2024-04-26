@@ -2,8 +2,9 @@
 
 import React from 'react';
 import {SearchReview} from "@lib/Reviews";
-import {createCommentAction} from "@components/comment/CreateCommentAction";
 import {useFormik} from "formik";
+import {commentScheme} from "@prisma/Database";
+import {createCommentAction} from "@components/comment/CreateCommentAction";
 
 
 interface Props {
@@ -34,9 +35,10 @@ const CommentForm = (props: Props) => {
 
         },
         validate: (values) => {
-            const errors: any = {}
-            if (values.content.length < 5) {
-                errors.content = "Comment must be at least 5 characters"
+            const result = commentScheme.safeParse(values)
+            const errors: { content?: string } = {}
+            if (!result.success) {
+                errors.content = "Invalid comment"
             }
             return errors
         }

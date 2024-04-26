@@ -1,6 +1,7 @@
 import {CommentData} from "@components/comment/CommentItem";
 import {revalidateTag} from "@node_modules/next/dist/server/web/spec-extension/revalidate-tag";
 import { PrismaClient } from "@prisma/client";
+import {z} from "zod";
 
 
 const getPrisma = (): PrismaClient => {
@@ -20,6 +21,10 @@ const getPrisma = (): PrismaClient => {
     return globalThis.prisma
 }
 
+export const commentScheme = z.object({
+    user: z.string().min(3),
+    content: z.string().min(5)
+})
 
 export const getCommentsBySlug = async (slug: string): Promise<CommentData[]> => {
     const cs: CommentData[] = await getPrisma().comment.findMany(
