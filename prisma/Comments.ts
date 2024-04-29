@@ -22,7 +22,11 @@ export const getCommentsBySlug = async (slug: string): Promise<CommentData[]> =>
             },
             select: {
                 id: true,
-                user: true,
+                user: {
+                    select: {
+                        email: true,
+                    },
+                },
                 content: true
             }
         }
@@ -37,9 +41,23 @@ export interface PostCommentBody {
 }
 
 export const createComment = async (body: PostCommentBody): Promise<{ id: number }> => {
+
+    const userId = await getPrisma().user.findUnique({
+        where: {
+            email: body.user
+        },
+        select: {
+            id: true
+        }
+    })
+
     const res = await getPrisma().comment.create({
         data: {
-            user: body.user,
+            user: {
+                connect: {
+                    id: userId.id
+                }
+            },
             content: body.content,
             reviewSlug: body.slug,
         },

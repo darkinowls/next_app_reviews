@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import {signOutAction} from "@components/auth/signInAction";
+import {signOutAction} from "@components/auth/authActions";
 import {useRouter} from "next/navigation";
 
 

@@ -6,7 +6,7 @@ const JWT_EXPIRATION = 1000 * 60 * 60 * 24 * 7
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'secret')
 export const createUserToken = async (userEmail: string): Promise<string> => {
 
-    const exp = new Date(Date.now() + JWT_EXPIRATION )
+    const exp = new Date(Date.now() + JWT_EXPIRATION)
 
     const data = new SignJWT({
         email: userEmail,

@@ -3,23 +3,23 @@
 import React from 'react';
 import {useFormik} from "formik";
 
-import {signInAction, } from "@components/auth/authActions";
-import {SignInBody, signInScheme} from "@components/auth/utils";
+import {signInAction, signUpAction,} from "@components/auth/authActions";
+import {SignInBody, signInScheme, SignUpBody, signUpScheme} from "@components/auth/utils";
 
 
-
-const SignInForm = () => {
+const SignUpForm = () => {
 
     const formik = useFormik({
         initialValues: {
             email: "",
             password: "",
+            password2: "",
+            name: "",
         },
-        onSubmit: async (values: SignInBody) => {
-            const error: { error: string } | null = await signInAction({
-                email: values.email,
-                password: values.password
-            })
+        onSubmit: async (values: SignUpBody) => {
+            const error: { error: string } | null = await signUpAction(
+                values
+            )
             if (error) {
                 formik.setErrors({
                     password: error.error
@@ -28,12 +28,11 @@ const SignInForm = () => {
             }
 
         },
-        validate: (values: SignInBody) => {
+        validate: (values: SignUpBody) => {
             console.log(values)
-            const result = signInScheme.safeParse({
-                email: values.email,
-                password: values.password
-            })
+            const result = signUpScheme.safeParse(
+                values
+            )
             const errors: { password?: string } = {}
             if (!result.success) {
                 errors.password = result.error.errors[0].message
@@ -47,7 +46,7 @@ const SignInForm = () => {
         <form
             onSubmit={formik.handleSubmit}
             className={"flex flex-col gap-2 mt-3 p-5 bg-white rounded-2xl border"}>
-            <p className={"text-lg mx-auto my-4"}> Log In!</p>
+            <p className={"text-lg mx-auto my-4"}> Sign Up!</p>
             <div className={"flex"}>
                 <label className={"w-28"} htmlFor={"user"}>Email</label>
                 <input
@@ -57,12 +56,28 @@ const SignInForm = () => {
                     className={"border border-gray-800 rounded p-1 flex-grow"}/>
             </div>
             <div className={"flex"}>
+                <label className={"w-28"} htmlFor={"content"}>Name</label>
+                <input
+                    onChange={formik.handleChange}
+                    value={formik.values.name}
+                    type={"name"}
+                    name={"name"} id={"name"} className={"border p-1 border-gray-800 rounded flex-grow"}/>
+            </div>
+            <div className={"flex"}>
                 <label className={"w-28"} htmlFor={"content"}>Password</label>
                 <input
                     onChange={formik.handleChange}
                     value={formik.values.password}
                     type={"password"}
                     name={"password"} id={"password"} className={"border p-1 border-gray-800 rounded flex-grow"}/>
+            </div>
+            <div className={"flex"}>
+                <label className={"w-28"} htmlFor={"content"}>Password again</label>
+                <input
+                    onChange={formik.handleChange}
+                    value={formik.values.password2}
+                    type={"password"}
+                    name={"password2"} id={"password2"} className={"border p-1 border-gray-800 rounded flex-grow"}/>
             </div>
             <div className={"text-red-500 text-sm"}>
                 {formik.errors.password}
@@ -80,4 +95,4 @@ const SignInForm = () => {
     );
 };
 
-export default SignInForm;
+export default SignUpForm;

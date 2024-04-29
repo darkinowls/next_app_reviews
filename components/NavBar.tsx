@@ -1,8 +1,7 @@
 import Link from "next/link";
 import NavLink from "@components/NavLink";
-import {cookies} from "next/headers";
-import {verifyUserTokenAndGetEmail} from "@lib/auth";
 import SignOutButton from "@components/auth/SignOutButton";
+import {verifyUserTokenAndGetEmail} from "@lib/auth";
 
 const NavBar = async () => {
 
@@ -24,23 +23,27 @@ const NavBar = async () => {
                 {userEmail ?
 
 
-                        <>
-                            <li className={"flex"}>
-                                <NavLink href="/account">{userEmail}</NavLink>
+                    <>
+                        <li className={"flex"}>
+                            <NavLink href="/account">{userEmail}</NavLink>
 
-                            </li>
+                        </li>
 
-                            <li>
-                                <SignOutButton/>
-                            </li>
-                        </>
+                        <li>
+                            <SignOutButton/>
+                        </li>
+                    </>
 
 
                     :
-
-                    <li>
-                        <NavLink href="/sign-in">Sign-in</NavLink>
-                    </li>
+                    <>
+                        <li>
+                            <NavLink href="/sign-in">Sign-in</NavLink>
+                        </li>
+                        <li>
+                            <NavLink href="/sign-up">Sign-Up</NavLink>
+                        </li>
+                    </>
                 }
             </ul>
         </nav>

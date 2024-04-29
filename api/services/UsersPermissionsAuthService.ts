@@ -13,7 +13,7 @@ export class UsersPermissionsAuthService {
 
     /**
      * Login with a provider
-     * Redirects to provider login before being redirect to /auth/{provider}/callback
+     * Redirects to provider login before being redirect to /authActions/{provider}/callback
      * @returns Error Error
      * @throws ApiError
      */
@@ -85,7 +85,7 @@ password?: string;
     }
 
     /**
-     * Default Callback from provider auth
+     * Default Callback from provider authActions
      * @returns Users_Permissions_UserRegistration Returns a jwt token and user info
      * @returns Error Error
      * @throws ApiError

@@ -8,6 +8,8 @@ interface CommentListProps {
 
 const CommentList = async (commentListProps: CommentListProps) => {
 
+    await new Promise((r) => setTimeout(r, 3000))
+
     console.log("Rendering CommentList")
 
     const {slug} = commentListProps

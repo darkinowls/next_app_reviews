@@ -54,7 +54,7 @@ export default async function ReviewPage({params}) {
                    className={"rounded-2xl mb-2"}
                    alt={title}/>
 
-            <article dangerouslySetInnerHTML={{__html: markedText}} className={"prose max-w-screen-sm"}></article>
+                <article dangerouslySetInnerHTML={{__html: markedText}} className={"prose max-w-screen-sm"}></article>
             </section>
             <section className={"mt-3 pt-3 border-t border-dashed"}>
                 <div className={"flex flex-col"}>
