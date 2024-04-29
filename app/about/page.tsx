@@ -14,7 +14,7 @@ const AboutPage = () => {
             <div className={"flex flex-col flex-grow justify-center items-center"}>
                 <div className={"flex text-xl items-center"}>
                     <div className={"mr-2"}> Made by</div>
-                    <Link className={"bg-teal-700 accent-teal-700 p-1 text-white"} href={"https://chernousov.vercel.app/"}>Chernousov
+                    <Link className={"bg-teal-700 accent-teal-700 p-1 text-white"} href={"https://darkinowls.com/"}>Chernousov
                         Denis</Link>
                 </div>
             </div>

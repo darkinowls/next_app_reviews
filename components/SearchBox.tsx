@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import {Combobox} from "@headlessui/react";
 import {useRouter} from "next/navigation";
-import {SearchReview} from "@lib/Reviews";
+import {SearchReview} from "@lib/reviews";
 import {NextResponse} from "next/server";
 
 

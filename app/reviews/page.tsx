@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import Heading from "@components/Heading";
-import {getReviewsPage, getSearchReviews} from "@lib/Reviews";
+import {getReviewsPage, getSearchReviews} from "@lib/reviews";
 import {Image} from "@node_modules/next/dist/client/image-component";
 import PageBar from "@components/PageBar";
 import SearchBox from "@components/SearchBox";

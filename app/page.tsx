@@ -1,7 +1,7 @@
 import Heading from "@components/Heading";
 import Link from "@node_modules/next/link";
 import React from "react";
-import {getReviewsPage} from "@lib/Reviews";
+import {getReviewsPage} from "@lib/reviews";
 import {Metadata} from "@node_modules/next";
 import {Image} from "@node_modules/next/dist/client/image-component";
 

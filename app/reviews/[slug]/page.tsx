@@ -1,6 +1,6 @@
 import React, {Suspense} from "react";
 import Heading from "../../../components/Heading";
-import {FullReview, getReviewDetails, getReviewSlugs} from "@lib/Reviews";
+import {FullReview, getReviewDetails, getReviewSlugs} from "@lib/reviews";
 import ShareLinkButton from "@components/ShareLinkButton";
 import {Image} from "@node_modules/next/dist/client/image-component";
 import {notFound} from 'next/navigation'
@@ -38,6 +38,7 @@ export default async function ReviewPage({params}) {
     console.log(`Rendering review ${title}`)
     return (
         <>
+        <section className={"flex flex-col lg:items-center"}>
             <Heading>{title}</Heading>
             <p className={"font-semibold"}>
                 {subtitle}
@@ -54,6 +55,7 @@ export default async function ReviewPage({params}) {
                    alt={title}/>
 
             <article dangerouslySetInnerHTML={{__html: markedText}} className={"prose max-w-screen-sm"}></article>
+            </section>
             <section className={"mt-3 pt-3 border-t border-dashed"}>
                 <div className={"flex flex-col"}>
                     <CommentHeader/>

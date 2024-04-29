@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import {SearchReview} from "@lib/Reviews";
+import {SearchReview} from "@lib/reviews";
 import {useFormik} from "formik";
 import {createCommentAction} from "@components/comment/CreateCommentAction";
 import {commentScheme} from "@prisma/Comments";

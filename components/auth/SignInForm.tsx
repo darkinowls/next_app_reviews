@@ -3,7 +3,7 @@
 import React from 'react';
 import {useFormik} from "formik";
 
-import {signInAction, } from "@components/sign-in/SignInAction";
+import {signInAction, } from "@components/auth/signInAction";
 import {SignInBody, signInScheme} from "@prisma/User";
 
 
