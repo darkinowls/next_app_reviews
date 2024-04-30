@@ -9,6 +9,6 @@ RUN rm -rf .next
 
 RUN npx pnpm install
 
-RUN npx pnpm build
+#RUN npx pnpm build
 
 
