@@ -12,6 +12,7 @@
     "@headlessui/react": "^1.7.19",
     "@heroicons/react": "^2.1.1",
     "@prisma/client": "5.12.1",
+    "bcrypt-ts": "^5.0.2",
     "build": "^0.1.4",
     "formik": "^2.4.5",
     "gray-matter": "^4.0.3",

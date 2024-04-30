@@ -1,5 +1,8 @@
 import getPrisma from "@prisma/Database";
 import {SignInBody, SignUpBody} from "@components/auth/utils";
+import {UserTokenPayload} from "@lib/auth";
+import {compare, hash,} from "bcrypt-ts";
+
 
 interface User {
     email: string
@@ -7,30 +10,36 @@ interface User {
     hashedPassword: string
 }
 
-export const createUser = async (body: User): Promise<{ id: number }> => {
+export const createUser = async (body: User): Promise<UserTokenPayload> => {
     console.log('Create user', body)
+    const trueHashedPassword = await hash(body.hashedPassword, 10)
     const res = await getPrisma().user.create({
         data: {
             email: body.email,
             name: body.name,
-            hashedPassword: body.hashedPassword
+            hashedPassword: trueHashedPassword
         },
         select: {
             id: true,
+            name: true,
         }
     })
-    return res
+    return {...res, email: body.email}
 }
 
-export const getUserBySignIn = async (body: SignInBody): Promise<number | null> => {
+export const getUserBySignIn = async (body: SignInBody): Promise<UserTokenPayload | null> => {
     const res = await getPrisma().user.findUnique({
         where: {
             email: body.email,
-            hashedPassword: body.password
         },
         select: {
             id: true,
+            name: true,
+            hashedPassword: true,
         }
     })
-    return res?.id || null
+    if (!res || !await compare(body.password, res.hashedPassword)) {
+        return null
+    }
+    return {...res, email: body.email}
 }

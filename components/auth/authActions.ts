@@ -2,7 +2,7 @@
 
 
 import {redirect} from "next/dist/client/components/redirect";
-import {createUserToken, removeUserToken} from "@lib/auth";
+import {createUserToken, removeUserToken, UserTokenPayload} from "@lib/auth";
 import {SignInBody, signInScheme, SignUpBody, signUpScheme} from "@components/auth/utils";
 import {createUser, getUserBySignIn} from "@prisma/User";
 
@@ -14,11 +14,11 @@ export const signInAction = async (body: SignInBody): Promise<{ error: string } 
 
     console.log('Sign in action', body)
 
-    const userId = await getUserBySignIn(body)
-    if (!userId) {
+    const payload: UserTokenPayload = await getUserBySignIn(body)
+    if (!payload) {
         return {error: "Invalid email or password"}
     }
-    await createUserToken(body.email)
+    await createUserToken(payload)
     redirect('/')
     return null
 
@@ -33,12 +33,12 @@ export const signUpAction = async (body: SignUpBody): Promise<{ error: string } 
 
     console.log('Sign up action', body)
     try {
-        await createUser({
+        const payload: UserTokenPayload = await createUser({
             email: body.email,
             name: body.name,
             hashedPassword: body.password
         })
-        await createUserToken(body.email)
+        await createUserToken(payload)
     } catch (e) {
         console.error('Error creating user', e)
         return {error: "Can't create user"}

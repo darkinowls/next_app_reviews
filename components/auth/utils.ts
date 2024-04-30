@@ -6,7 +6,7 @@ export interface SignInBody {
 }
 
 export const signInScheme = z.object({
-    email: z.string().email(),
+    email: z.string().email().toLowerCase(),
     password: z.string().min(4, 'Password must be at least 4 characters'),
 })
 
@@ -19,7 +19,7 @@ export interface SignUpBody {
 }
 
 export const signUpScheme = z.object({
-    email: z.string().email(),
+    email: z.string().email().toLowerCase(),
     password: z.string().min(4, 'Password must be at least 4 characters'),
     password2: z.string().min(4, 'Password must be at least 4 characters'),
     name: z.string().min(3, 'Name must be at least 3 characters')

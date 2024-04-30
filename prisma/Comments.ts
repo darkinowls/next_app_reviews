@@ -4,8 +4,7 @@ import {revalidateTag} from "next/dist/server/web/spec-extension/revalidate-tag"
 import getPrisma from "@prisma/Database";
 
 export const commentScheme = z.object({
-    user: z.string().min(3),
-    content: z.string().min(5)
+    content: z.string().min(3)
 })
 
 export const getCommentsBySlug = async (slug: string): Promise<CommentData[]> => {
@@ -24,7 +23,7 @@ export const getCommentsBySlug = async (slug: string): Promise<CommentData[]> =>
                 id: true,
                 user: {
                     select: {
-                        email: true,
+                        name: true,
                     },
                 },
                 content: true
@@ -35,27 +34,18 @@ export const getCommentsBySlug = async (slug: string): Promise<CommentData[]> =>
 }
 
 export interface PostCommentBody {
-    user: string
+    userId: number
     content: string
     slug: string
 }
 
 export const createComment = async (body: PostCommentBody): Promise<{ id: number }> => {
 
-    const userId = await getPrisma().user.findUnique({
-        where: {
-            email: body.user
-        },
-        select: {
-            id: true
-        }
-    })
-
     const res = await getPrisma().comment.create({
         data: {
             user: {
                 connect: {
-                    id: userId.id
+                    id: body.userId
                 }
             },
             content: body.content,

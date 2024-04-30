@@ -15,14 +15,14 @@ interface Props {
 const CommentForm = (props: Props) => {
     const {searchReview} = props
 
+
+
     const formik = useFormik({
         initialValues: {
-            user: "",
             content: ""
         },
         onSubmit: async (values) => {
             const error: { error: string } | null = await createCommentAction({
-                user: values.user,
                 content: values.content,
                 slug: searchReview.slug,
             })
@@ -52,14 +52,6 @@ const CommentForm = (props: Props) => {
             <p className={"text-lg"}> Played <span className={"font-semibold"}>
                 {searchReview.title}
             </span>? Comment it!</p>
-            <div className={"flex"}>
-                <label className={"w-28"} htmlFor={"user"}>Name</label>
-                <input
-                    onChange={formik.handleChange}
-                    value={formik.values.user}
-                    type={"text"} name={"user"} id={"user"}
-                    className={"border border-gray-800 rounded p-1 flex-grow"}/>
-            </div>
             <div className={"flex"}>
                 <label className={"w-28"} htmlFor={"content"}>Comment</label>
                 <textarea

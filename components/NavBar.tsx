@@ -1,11 +1,13 @@
 import Link from "next/link";
 import NavLink from "@components/NavLink";
 import SignOutButton from "@components/auth/SignOutButton";
-import {verifyUserTokenAndGetEmail} from "@lib/auth";
+import {UserTokenPayload, verifyUserToken} from "@lib/auth";
 
 const NavBar = async () => {
 
-    const userEmail = await verifyUserTokenAndGetEmail()
+    const userEmail: UserTokenPayload = await verifyUserToken()
+
+    console.log(userEmail)
 
     return (
         <nav>
@@ -25,7 +27,7 @@ const NavBar = async () => {
 
                     <>
                         <li className={"flex"}>
-                            <NavLink href="/account">{userEmail}</NavLink>
+                            <NavLink href="/account">{userEmail.email}</NavLink>
 
                         </li>
 

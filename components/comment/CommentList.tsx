@@ -1,6 +1,7 @@
 import React from 'react';
 import CommentItem, {CommentData} from "@components/comment/CommentItem";
 import {getCommentsBySlug} from "@prisma/Comments";
+import {cookies} from "next/headers";
 
 interface CommentListProps {
     slug: string
@@ -8,7 +9,7 @@ interface CommentListProps {
 
 const CommentList = async (commentListProps: CommentListProps) => {
 
-    await new Promise((r) => setTimeout(r, 3000))
+    // await new Promise((r) => setTimeout(r, 3000))
 
     console.log("Rendering CommentList")
 

@@ -4,12 +4,21 @@ import {cookies} from "next/headers";
 const JWT_TOKEN_NAME = 'token'
 const JWT_EXPIRATION = 1000 * 60 * 60 * 24 * 7
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'secret')
-export const createUserToken = async (userEmail: string): Promise<string> => {
+
+
+export interface UserTokenPayload {
+    id: number
+    email: string
+    name: string
+}
+
+
+export const createUserToken = async (payload: UserTokenPayload): Promise<string> => {
 
     const exp = new Date(Date.now() + JWT_EXPIRATION)
 
     const data = new SignJWT({
-        email: userEmail,
+        user: payload
     })
         .setProtectedHeader({alg: 'HS256'})
         .setExpirationTime(exp)
@@ -24,14 +33,15 @@ export const createUserToken = async (userEmail: string): Promise<string> => {
     return signedToken
 }
 
-export const verifyUserTokenAndGetEmail = async (): Promise<string | null> => {
+export const verifyUserToken = async (): Promise<UserTokenPayload | null> => {
     const token = cookies().get(JWT_TOKEN_NAME)
     if (!token || !token.value) {
         return null
     }
     try {
         const data = await jwtVerify(token.value, JWT_SECRET)
-        return data.payload.email as string
+        console.log(data.payload.user)
+        return data.payload.user as UserTokenPayload
     } catch (e) {
         console.warn('Token verification failed', e)
     }

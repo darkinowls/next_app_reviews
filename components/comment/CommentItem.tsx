@@ -4,7 +4,7 @@ import {UserCircleIcon} from "@heroicons/react/16/solid";
 
 export interface CommentData {
     id: number,
-    user: { email: string },
+    user: { name: string },
     content: string
 }
 
@@ -20,7 +20,7 @@ const CommentItem = (commentProps: CommentProps) => {
         <li className={"border p-2 first:rounded-t-2xl odd:bg-orange-100"}>
             <div className={"flex text-slate-500 items-center gap-2 pb-2"}>
                 <UserCircleIcon className={"h-6 w-6"}/>
-                <h3 className={"text-lg"}>{commentData.user.email}</h3></div>
+                <h3 className={"text-lg"}>{commentData.user.name}</h3></div>
             <p className={"italic"}>{commentData.content}</p>
         </li>
     );
