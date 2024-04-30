@@ -20,6 +20,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "1337:3000"
+    environment:
+      - NODE_ENV=production
     command: sh wait_for.sh postgres:5432 -- server.js
     depends_on:
       - postgres

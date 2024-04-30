@@ -37,7 +37,7 @@ export default async function ReviewPage({params}) {
         notFound()
     }
 
-    const hasToken: Boolean = cookies().get('token') || null
+    const hasToken = !!(cookies().get('token') || null)
 
 
     const {title, date, image, markedText, subtitle} = review
