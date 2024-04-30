@@ -26,3 +26,11 @@ services:
     depends_on:
       - postgres
 
+
+  migrator:
+    build:
+      context: .
+      dockerfile: migrate.Dockerfile
+    depends_on:
+      - postgres
+    command: sh wait_for.sh postgres:5432 -- sh -c "npx prisma migrate deploy"
