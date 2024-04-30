@@ -1,6 +1,7 @@
 import {SignJWT, jwtVerify} from "jose";
 import {cookies} from "next/headers";
 import {cache} from "react";
+import {RequestCookie} from "next/dist/compiled/@edge-runtime/cookies";
 
 const JWT_TOKEN_NAME = 'token'
 const JWT_EXPIRATION = 1000 * 60 * 60 * 24 * 7

@@ -9,7 +9,7 @@ const CommentListSkeleton = () => {
             {[1, 2, 3].map(c => (
                 <CommentItem key={c} commentData={{
                     id: c,
-                    user: {email: "loading..."},
+                    user: {name: "loading..."},
                     content: "\n",
                 }}/>
             ))}
