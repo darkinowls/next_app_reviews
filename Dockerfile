@@ -21,5 +21,6 @@ COPY --from=build --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY ./wait_for.sh ./wait_for.sh
 
 RUN chmod 777 ./wait_for.sh
+RUN chmod 777 ./server.js
 
 ENV NODE_ENV production
