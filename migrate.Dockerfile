@@ -7,7 +7,7 @@ COPY . .
 RUN rm -rf node_modules
 RUN rm -rf .next
 
-RUN npx pnpm install
+RUN npm install prisma -g
 
 #RUN npx pnpm build
 
