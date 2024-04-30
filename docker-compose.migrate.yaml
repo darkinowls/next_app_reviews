@@ -15,7 +15,7 @@ services:
       dockerfile: migrate.Dockerfile
     depends_on:
       - postgres
-    command: sh wait_for.sh postgres:5432 -- sh -c "prisma migrate deploy"
+    command: sh wait_for.sh postgres:5432 -- sh -c "prisma db push"
 
 
 
