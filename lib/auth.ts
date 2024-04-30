@@ -1,5 +1,6 @@
 import {SignJWT, jwtVerify} from "jose";
 import {cookies} from "next/headers";
+import {cache} from "react";
 
 const JWT_TOKEN_NAME = 'token'
 const JWT_EXPIRATION = 1000 * 60 * 60 * 24 * 7
@@ -12,6 +13,17 @@ export interface UserTokenPayload {
     name: string
 }
 
+export const decodeUserTokenCached = cache(async (tokenValue : string): Promise<UserTokenPayload | null> => {
+    console.log('Decoding token')
+    try {
+        const data = await jwtVerify(tokenValue, JWT_SECRET)
+        console.log(data.payload.user)
+        return data.payload.user as UserTokenPayload
+    } catch (e) {
+        console.warn('Token verification failed', e)
+    }
+    return null
+})
 
 export const createUserToken = async (payload: UserTokenPayload): Promise<string> => {
 
@@ -34,18 +46,12 @@ export const createUserToken = async (payload: UserTokenPayload): Promise<string
 }
 
 export const verifyUserToken = async (): Promise<UserTokenPayload | null> => {
-    const token = cookies().get(JWT_TOKEN_NAME)
+    const token: RequestCookie = cookies().get(JWT_TOKEN_NAME)
     if (!token || !token.value) {
         return null
     }
-    try {
-        const data = await jwtVerify(token.value, JWT_SECRET)
-        console.log(data.payload.user)
-        return data.payload.user as UserTokenPayload
-    } catch (e) {
-        console.warn('Token verification failed', e)
-    }
-    return null
+
+    return decodeUserTokenCached(token.value)
 }
 
 export const removeUserToken = async (): Promise<void> => {
