@@ -6,7 +6,7 @@ CMS_URL = new URL(process.env.CMS_DOMAIN)
  */
 module.exports = {
 
-    // output: "standalone",
+    output: "standalone",
     // output: "export",
     images: {
         // unoptimized: true,
