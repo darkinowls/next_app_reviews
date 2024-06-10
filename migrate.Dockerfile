@@ -4,7 +4,9 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install prisma
+RUN npx pnpm install
+
+RUN npm install -g prisma
 
 #RUN npx pnpm build
 
